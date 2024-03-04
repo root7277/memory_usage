@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:memory_usage/provider/data_model.dart';
 import 'package:memory_usage/provider/data_provider.dart';
 import 'package:memory_usage/resurs/app_color.dart';
 import 'package:memory_usage/resurs/app_style.dart';
@@ -33,7 +32,7 @@ class _AddPageState extends State<AddPage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          context.read<DataProvider>().getDataAdd(Data(information: data.text));
+          context.read<DataProvider>().getDataAdd(data.text);
           Navigator.pop(context);
         },
         child: const Icon(Icons.add),

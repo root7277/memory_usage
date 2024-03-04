@@ -24,11 +24,12 @@ class _HomePageState extends State<HomePage> {
       body: Consumer<DataProvider>(
         builder: (context, value, child) {
           return ListView.builder(
-            itemCount: value.dataInformation.length,
+            physics: const BouncingScrollPhysics(),
+            itemCount: value.dataInformation.values.length,
             itemBuilder: (context, index) {
               return ListTile(
                 onLongPress: () {
-                  controllerData.text = value.dataInformation[index].information;
+                  controllerData.text = value.dataInformation.values.toList()[index];
                   showDialog(
                     context: context,
                     builder: (context) {
@@ -36,7 +37,7 @@ class _HomePageState extends State<HomePage> {
                         actions: [
                           TextButton(
                             onPressed: () {
-                              context.read<DataProvider>().getUpdateData(index, controllerData.text);
+                              context.read<DataProvider>().getUpdateData(index, controllerData.value.text);
                               Navigator.pop(context);
                             },
                             child: const Text('Save'),
@@ -58,7 +59,7 @@ class _HomePageState extends State<HomePage> {
                   );
                 },
                 leading: CircleAvatar(child: Text('${index + 1}')),
-                title: Text(value.dataInformation[index].information),
+                title: Text(value.dataInformation.values.toList()[index]),
                 trailing: IconButton(
                   onPressed: () {
                     showDialog(
@@ -81,7 +82,7 @@ class _HomePageState extends State<HomePage> {
                             )
                           ],
                           title: const Text('Remove'),
-                          content: Text('${value.dataInformation[index].information} ushbu ma\'lumot o\'chirilsinmi'),
+                          content: Text('${value.dataInformation.values.toList()[index]} ushbu ma\'lumot o\'chirilsinmi'),
                         );
                       },
                     );

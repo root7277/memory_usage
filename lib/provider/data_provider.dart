@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:memory_usage/provider/data_model.dart';
+import 'package:hive/hive.dart';
 
 class DataProvider extends ChangeNotifier {
-  List<Data> dataInformation = [];
+  final dataInformation = Hive.box('dataContact');
 
-  void getDataAdd(Data data_1) {
-    dataInformation.add(data_1);
+  void getDataAdd(String dataName) {
+    dataInformation.add(dataName);
     notifyListeners();
   }
 
-  void getUpdateData(int id, String myData) {
-    dataInformation[id].information = myData;
+  void getUpdateData(int index, String myData) {
+    dataInformation.values.toList()[index] = myData;
     notifyListeners();
   }
 
   void getRemoveUserData(int index) {
-    dataInformation.removeAt(index);
+    dataInformation.deleteAt(index);
     notifyListeners();
   }
 }
